@@ -17,14 +17,19 @@ from django.conf.urls import url, include
 # from django.contrib import admin
 from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
-from apps.goods.views import GoodsListView
+from apps.goods.views import GoodsViewSet, CategoryViewSet
 from rest_framework.documentation import include_docs_urls
 from extra_apps import xadmin
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'goods', GoodsViewSet, base_name='goods')
+router.register(r'categorys', CategoryViewSet, base_name='categorys')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'goods/$', GoodsListView.as_view(), name='goods-list'),
+    url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title='生鲜')),
 ]
