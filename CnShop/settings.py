@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'apps.user_operation.apps.UserOperationConfig',
     'extra_apps.DjangoUeditor',
     'crispy_forms',
-    'extra_apps.xadmin',
+    'xadmin',
     'rest_framework',
     'django_filters',
     'corsheaders',
@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL= True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'CnShop.urls'
 
@@ -144,6 +144,10 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }

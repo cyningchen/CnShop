@@ -14,13 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-# from django.contrib import admin
+from django.contrib import admin
 from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from apps.goods.views import GoodsViewSet, CategoryViewSet
 from rest_framework.documentation import include_docs_urls
-from extra_apps import xadmin
+import xadmin
 from rest_framework.routers import DefaultRouter
+from rest_framework_jwt.views import obtain_jwt_token
 
 router = DefaultRouter()
 router.register(r'goods', GoodsViewSet, base_name='goods')
@@ -32,4 +33,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title='生鲜')),
+    url(r'^jwt_auth/', obtain_jwt_token),
 ]

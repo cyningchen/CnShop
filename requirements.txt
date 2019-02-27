@@ -1,6 +1,6 @@
-django
+django==1.11.20
 pillow
-mysqlclient
+pymysql
 djangorestframework-jwt
 djangorestframework
 markdown
