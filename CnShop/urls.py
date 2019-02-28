@@ -18,6 +18,7 @@ from django.contrib import admin
 from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from apps.goods.views import GoodsViewSet, CategoryViewSet
+from apps.users.views import SmsCodeViewSet, UserViewSet
 from rest_framework.documentation import include_docs_urls
 import xadmin
 from rest_framework.routers import DefaultRouter
@@ -26,6 +27,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 router = DefaultRouter()
 router.register(r'goods', GoodsViewSet, base_name='goods')
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
+router.register(r'codes', SmsCodeViewSet, base_name="codes")
+router.register(r'users', UserViewSet, base_name='users')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -33,5 +36,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title='生鲜')),
-    url(r'^jwt_auth/', obtain_jwt_token),
+    url(r'^login/', obtain_jwt_token),
 ]
