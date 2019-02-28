@@ -19,6 +19,7 @@ from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from apps.goods.views import GoodsViewSet, CategoryViewSet
 from apps.users.views import SmsCodeViewSet, UserViewSet
+from apps.user_operation.views import UserFavViewSet
 from rest_framework.documentation import include_docs_urls
 import xadmin
 from rest_framework.routers import DefaultRouter
@@ -29,6 +30,7 @@ router.register(r'goods', GoodsViewSet, base_name='goods')
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
 router.register(r'codes', SmsCodeViewSet, base_name="codes")
 router.register(r'users', UserViewSet, base_name='users')
+router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

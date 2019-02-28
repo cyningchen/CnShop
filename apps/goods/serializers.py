@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Goods, GoodsCategory
+from .models import Goods, GoodsCategory, GoodsImage
 from rest_framework import pagination
 from rest_framework.pagination import Response
 
@@ -9,21 +9,32 @@ class CategorySerializer3(serializers.ModelSerializer):
         model = GoodsCategory
         fields = "__all__"
 
+
 class CategorySerializer2(serializers.ModelSerializer):
     sub_cat = CategorySerializer3(many=True)
+
     class Meta:
         model = GoodsCategory
         fields = "__all__"
 
+
 class CategorySerializer(serializers.ModelSerializer):
     sub_cat = CategorySerializer2(many=True)
+
     class Meta:
         model = GoodsCategory
         fields = "__all__"
+
+
+class GoodsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImage
+        fields = ("image",)
 
 
 class GoodsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    images = GoodsImageSerializer(many=True)
 
     class Meta:
         model = Goods

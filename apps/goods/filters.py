@@ -6,6 +6,7 @@ import django_filters
 from .models import Goods
 from django.db.models import Q
 
+
 class GoodsFilter(django_filters.rest_framework.FilterSet):
     """
     商品过滤类
@@ -20,4 +21,4 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Goods
-        fields = ['pricemin', 'pricemax','top_category']
+        fields = ['pricemin', 'pricemax', 'top_category', 'is_hot']
