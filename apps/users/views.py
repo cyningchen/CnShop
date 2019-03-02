@@ -3,7 +3,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from rest_framework import mixins, viewsets
-from apps.users.serializers import UserRegSerializer, SmsSerializer
+from apps.users.serializers import UserRegSerializer, SmsSerializer, UserDetailSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from apps.utils.yunpian import YuanPian
@@ -11,6 +11,9 @@ from CnShop.settings import APIKEY
 from random import choice
 from .models import VerifyCode
 from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
+from rest_framework import permissions
+from rest_framework import authentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 # Create your views here.
 
@@ -70,12 +73,13 @@ class SmsCodeViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             }, status=status.HTTP_201_CREATED)
 
 
-class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
     用户
     """
     queryset = User.objects.all()
     serializer_class = UserRegSerializer
+    authentication_classes = [JSONWebTokenAuthentication, authentication.SessionAuthentication]
 
     def create(self, request, *args, **kwargs):
         """
@@ -99,3 +103,18 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def perform_create(self, serializer):
         return serializer.save()
+
+    def get_object(self):
+        return self.request.user
+
+    def get_permissions(self):
+        if self.action == "retrieve":
+            return [permissions.IsAuthenticated(), ]
+        elif self.action == "create":
+            return []
+        return []
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return UserRegSerializer
+        return UserDetailSerializer

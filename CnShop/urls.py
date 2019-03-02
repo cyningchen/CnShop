@@ -19,18 +19,27 @@ from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from apps.goods.views import GoodsViewSet, CategoryViewSet
 from apps.users.views import SmsCodeViewSet, UserViewSet
-from apps.user_operation.views import UserFavViewSet
+from apps.user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
 from rest_framework.documentation import include_docs_urls
 import xadmin
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 
 router = DefaultRouter()
+# 商品显示
 router.register(r'goods', GoodsViewSet, base_name='goods')
+# 商品分类
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
+# 发送验证码
 router.register(r'codes', SmsCodeViewSet, base_name="codes")
+# 用户注册和显示
 router.register(r'users', UserViewSet, base_name='users')
+# 用户收藏功能
 router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
+# 用户留言功能
+router.register(r'messages', LeavingMessageViewSet, base_name='messages')
+# 用户收货地址
+router.register(r'address', AddressViewSet, base_name='address')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

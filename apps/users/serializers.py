@@ -85,3 +85,13 @@ class UserRegSerializer(serializers.ModelSerializer):
     #     user.set_password(validated_data["password"])
     #     user.save()
     #     return user
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    """
+    用户详情序列化类
+    """
+
+    class Meta:
+        model = User
+        fields = ("name", "gender", "birthday", "email", "mobile")
