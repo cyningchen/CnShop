@@ -19,6 +19,7 @@ from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from apps.goods.views import GoodsViewSet, CategoryViewSet
 from apps.users.views import SmsCodeViewSet, UserViewSet
+from apps.trade.views import ShoppingCartViewSet, OrderViewSet
 from apps.user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
 from rest_framework.documentation import include_docs_urls
 import xadmin
@@ -40,6 +41,10 @@ router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 router.register(r'messages', LeavingMessageViewSet, base_name='messages')
 # 用户收货地址
 router.register(r'address', AddressViewSet, base_name='address')
+# 购物车
+router.register(r'shopcarts', ShoppingCartViewSet, base_name='shopcarts')
+# 订单相关
+router.register(r'orders', OrderViewSet, base_name='orders')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
