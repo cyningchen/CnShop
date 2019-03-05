@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from CnShop.settings import MEDIA_ROOT
 from django.views.static import serve
-from apps.goods.views import GoodsViewSet, CategoryViewSet
+from apps.goods.views import GoodsViewSet, CategoryViewSet, HotSearchsViewset, BannerViweSet, IndexCategoryViewset
 from apps.users.views import SmsCodeViewSet, UserViewSet
 from apps.trade.views import ShoppingCartViewSet, OrderViewSet
 from apps.user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
@@ -31,6 +31,8 @@ router = DefaultRouter()
 router.register(r'goods', GoodsViewSet, base_name='goods')
 # 商品分类
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
+# 热搜
+router.register(r'hotsearchs', HotSearchsViewset, base_name="hotsearchs")
 # 发送验证码
 router.register(r'codes', SmsCodeViewSet, base_name="codes")
 # 用户注册和显示
@@ -45,6 +47,10 @@ router.register(r'address', AddressViewSet, base_name='address')
 router.register(r'shopcarts', ShoppingCartViewSet, base_name='shopcarts')
 # 订单相关
 router.register(r'orders', OrderViewSet, base_name='orders')
+# 轮播图
+router.register(r'banners', BannerViweSet, base_name='banners')
+# 首页商品系列数据
+router.register(r'indexgoods', IndexCategoryViewset, base_name="indexgoods")
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

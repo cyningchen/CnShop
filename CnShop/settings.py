@@ -142,9 +142,9 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-#STATICFILES_DIRS = (
+# STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, "static"),
-#)
+# )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -153,18 +153,36 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle'
+    # ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '2/minute',
+    #     'user': '3/minute'
+    # }
 }
 
-
 import datetime
+
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
-#手机号码正则表达式
+# 手机号码正则表达式
 REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
 
-
-#云片网设置
+# 云片网设置
 APIKEY = "28918179b6d76619951c676e08591497"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://139.196.90.101:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": "chenxinli123",
+        }
+    }
+}
