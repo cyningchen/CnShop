@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -132,6 +133,9 @@ USE_L10N = True
 USE_TZ = False  # 默认是True,时间是UTC时间
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.weibo.WeiboOAuth2',
+    'social_core.backends.weixin.WeixinOAuth2',
+    'social_core.backends.qq.QQOAuth2',
     'apps.users.views.CustomBackend',
 )
 
@@ -142,9 +146,9 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-# STATICFILES_DIRS = (
+#STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, "static"),
-# )
+#)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -186,3 +190,10 @@ CACHES = {
         }
     }
 }
+
+# 第三方登录
+SOCIAL_AUTH_WEIBO_KEY = 3977177432
+SOCIAL_AUTH_WEIBO_SECRET = "a20ffd50a4097eab01665d4307fd5d32"
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://139.196.90.101'
+

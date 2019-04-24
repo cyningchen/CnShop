@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.views.generic import TemplateView
 from django.conf.urls import url, include
 from django.contrib import admin
 from CnShop.settings import MEDIA_ROOT
@@ -58,5 +59,9 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title='生鲜')),
-    url(r'^login/', obtain_jwt_token),
+    url(r'^login/$', obtain_jwt_token),
+    url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
+    # 第三方登录url
+    url('', include('social_django.urls', namespace='social')),
 ]
+
